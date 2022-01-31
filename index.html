@@ -32,23 +32,8 @@
         </aside>
         <!--Display search results-->
         <section class="row col-8 mr-0 ml-1">
-            <article class="col-12 border border-dark rounded">
-                <header>
-                    <span id="cityName" class="align-middle">test</span>
-                    <img id="cityPic" src="" alt="">
-                </header>
-                <article class="row">
-                    <p id="temperature">test</p>
-                </article>
-                <article class="row">
-                    <p id="humidity">test</p>
-                </article>
-                <article class="row">
-                    <p id="windSpeed">test</p>
-                </article>
-                <article class="row">
-                    <p id="uvIndex">test</p>
-                </article>
+            <article id="currentWeather" class="col-12 border border-dark rounded">
+                 <h2 id=currentCity></h2>
             </article>
             <article class="row col-12">
                 <h2>5-Day Forecast</h2>
@@ -61,6 +46,8 @@
     <!--jQuery-->
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--Moment-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <!--jScript-->
     <script src="assets/script.js"></script>
 </body>
