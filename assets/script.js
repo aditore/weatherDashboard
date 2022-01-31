@@ -17,6 +17,7 @@ $('#citySearchBtn').on('click', function(event) {
 
     var city = $('#citySearch').val().trim();
     currentWeather(city);
+    nextFiveDaysCall(city);
 
     if (!searchHistoryLi.includes(city)) {
         searchHistoryLi.push(city);
@@ -47,10 +48,10 @@ function currentWeather(city) {
    
 }
 
-function getWeather(weather, searchCity) {
+function getWeather(weather, city) {
     //clear
-    //cWeather.textContent = "";
-    cCity.textContent = searchCity;
+    $('#currentWeather').text('');
+    $('#currentCity').text(city);
     
 
     console.log(weather);
@@ -122,4 +123,40 @@ function displayUvIndex(index) {
     uvIndexV.appendChild(uvIndexValue);
 
     $('#currentWeather').append(uvIndexV);
+}
+
+//forecast api call
+
+function nextFiveDaysCall(city) {
+    var openWeatherUrlForecast = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&appid=${apiKey}`;
+
+    fetch(openWeatherUrlForecast)
+    .then(function(response) {
+        response.json().then(function(data) {
+            fiveDays(data);
+        })
+    })
+}
+
+function fiveDays(weather) {
+    $('#fiveDays').text('');
+
+    var weatherForecast = weather.list;
+
+        for (i = 5; i < weatherForecast.length; i = i + 8) {
+            var daily = weatherForecast[i];
+
+            var forecastV = document.createElement('div');
+            forecastV.classList = 'card bg-primary text-light m-2';
+
+            var forecastDate = document.createElement('h5');
+            forecastDate.textContent = moment.unix(daily.dt).format('MMM D, YYYY');
+            forecastDate.classList = 'car-header text-center'
+            forecastV.appendChild(forecastDate);
+
+            $('#fiveDays').append(forecastV);
+
+            //date
+
+        }
 }
