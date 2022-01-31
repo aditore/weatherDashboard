@@ -1,0 +1,6 @@
+/*style appended list items*/
+
+li {
+    margin: 10px;
+    border-style: solid;
+}
