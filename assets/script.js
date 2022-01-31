@@ -83,4 +83,43 @@ function getWeather(weather, searchCity) {
     windV.textContent = 'Wind Speed: ' + weather.wind.speed + ' MPH';
     windV.classList = 'list-group-item';
     $('#currentWeather').append(windV);
+
+//UV finds the latitude and longitude of the given city and plugs it into seperate function
+    var lat = weather.coord.lat;
+    var lon = weather.coord.lon;
+
+    uvIndex(lat, lon);
+}
+
+//UV index api call
+function uvIndex(lat, lon) {
+    var openWeatherUrlLatLon = `https://api.openweathermap.org/data/2.5/uvi?appid=${apiKey}&lat=${lat}&lon=${lon}`;
+
+    fetch(openWeatherUrlLatLon)
+    .then(function(response) {
+        response.json().then(function(data) {
+            displayUvIndex(data);
+        });
+    });
+}
+
+function displayUvIndex(index) {
+    var uvIndexV = document.createElement('div');
+    uvIndexV.textContent = 'UV Index: ';
+    uvIndexV.classList = 'list-group-item';
+
+    var uvIndexValue = document.createElement('li');
+    uvIndexValue.textContent = index.value;
+
+    if (index.value <= 2) {
+        uvIndexValue.classList = 'favorable';
+    } else if (index.value > 2 && index.value <= 8) {
+        uvIndexValue.classList = 'moderate';
+    } else {
+        uvIndexValue.classList = 'severe';
+    }
+
+    uvIndexV.appendChild(uvIndexValue);
+
+    $('#currentWeather').append(uvIndexV);
 }
