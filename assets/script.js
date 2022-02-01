@@ -13,15 +13,30 @@ var searchHistoryLi = [];
 
 //document ready
 $(document).ready(function() {
-    var recentSearch = JSON.parse(localStorage.getItem('cities'));
-    var createHistory = document.createElement('li');
-    createHistory.classList = 'list-group-item';
-    createHistory.innerText = recentSearch;
 
-    $('#searchHistory').append(createHistory);
+    var recentSearch = localStorage.getItem('cities');
+    recentSearch = JSON.parse(recentSearch);
 
+    if (recentSearch !== null) {
+        for (var i = 0; i < recentSearch.length; i++) {
+            var createHistory = document.createElement('li');
+            createHistory.classList = 'list-group-item citySearch';
+            createHistory.textContent = recentSearch[i];
+
+            $('#searchHistory').append(createHistory);
+
+            $(createHistory).on('click', function(event) {
+                event.preventDefault();
+
+                var oldCityH = createHistory.textContent;
+                currentWeather(oldCityH);
+                nextFiveDaysCall(oldCityH);
+            })
+        }
+    }
     //on click clear history
 })
+
 //search for city
 $('#citySearchBtn').on('click', function(event) {
     event.preventDefault();
@@ -33,8 +48,16 @@ $('#citySearchBtn').on('click', function(event) {
     if (!searchHistoryLi.includes(city)) {
         searchHistoryLi.push(city);
         var newSearch = document.createElement('li')
-        newSearch.classList = 'list-group-item';
+        newSearch.classList = 'list-group-item citySearch';
         newSearch.innerText = city;
+
+        $(newSearch).on('click', function(event) {
+            event.preventDefault();
+
+            var oldCity = newSearch.textContent;
+            currentWeather(oldCity);
+            nextFiveDaysCall(oldCity);
+        })
 
         $('#searchHistory').append(newSearch);
     };
@@ -42,8 +65,9 @@ $('#citySearchBtn').on('click', function(event) {
     localStorage.setItem('cities', JSON.stringify(searchHistoryLi));
     console.log(searchHistoryLi);
 })
-//function for getting api
 
+
+//function for getting api
 function currentWeather(city) {
 
     var openWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
@@ -118,7 +142,7 @@ function uvIndex(lat, lon) {
 function displayUvIndex(index) {
     var uvIndexV = document.createElement('div');
     uvIndexV.textContent = 'UV Index: ';
-    uvIndexV.classList = 'list-group-item';
+    uvIndexV.classList = 'list-group-item uvIndex';
 
     var uvIndexValue = document.createElement('li');
     uvIndexValue.textContent = index.value;

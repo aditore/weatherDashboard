@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="./assets/style.css">
-    <title>Document</title>
+    <title>weatherDashboard</title>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-dark bg-dark">
-            <span class="navbar-brand h1 mb-0 w-100 text-center">Weather Dashboard</span>
+            <span id="headerTop" class="navbar-brand h1 mb-0 w-100 text-center">Weather Dashboard</span>
         </nav>
     </header>
     <main class="row ml-1 my-1">
@@ -32,9 +32,9 @@
         </aside>
         <!--Display search results-->
         <section class="row col-8 mr-0 ml-1">
-            <h2 id=currentCity></h2>
-            <article id="currentWeather" class="col-12 border border-dark rounded"></article>
-            <article class="row col-12">
+            <h2 id=currentCity>City will display here after search!</h2>
+            <article id="currentWeather" class="col-12"></article>
+            <article class="row col-12 text-center">
                 <h2>5-Day Forecast</h2>
             </article>
             <section id="fiveDays" class="row">
