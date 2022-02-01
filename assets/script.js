@@ -192,20 +192,26 @@ function fiveDays(weather) {
 
             //icon
             var forecastIcon = document.createElement('img');
-            forecastIcon.classList = 'card-body text-center';
+            forecastIcon.classList = 'card-body text-center forecastIcon';
             forecastIcon.setAttribute('src', `https://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`);
             forecastIcon.setAttribute('alt', 'forecastIcon');
             forecastV.appendChild(forecastIcon);
 
             //temperature
             var forecastTemp = document.createElement('li');
-            forecastTemp.classList = 'card-body text-center';
+            forecastTemp.classList = 'card-body text-center cardLi';
             forecastTemp.textContent = 'Temperature: ' + daily.main.temp + ' °K';
             forecastV.appendChild(forecastTemp);
 
+            //windspeed
+            var forecastWindSpeed = document.createElement('li')
+            forecastWindSpeed.classList = 'card-body text-center cardLi';
+            forecastWindSpeed.textContent = 'Wind Speed: ' + daily.wind.speed + ' MPH';
+            forecastV.appendChild(forecastWindSpeed);
+
             //humidity
             var forecastHumidity = document.createElement('li');
-            forecastHumidity.classList = 'card-body text-center';
+            forecastHumidity.classList = 'card-body text-center cardLi';
             forecastHumidity.textContent = 'Humidity: ' + daily.main.humidity + ' %';
             forecastV.appendChild(forecastHumidity);
 
