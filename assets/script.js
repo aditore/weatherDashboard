@@ -11,6 +11,17 @@ var forecast = document.querySelector('fiveDays');
 var apiKey = "806d132b07e1078e02e5d0735b73fdc7";
 var searchHistoryLi = [];
 
+//document ready
+$(document).ready(function() {
+    var recentSearch = JSON.parse(localStorage.getItem('cities'));
+    var createHistory = document.createElement('li');
+    createHistory.classList = 'list-group-item';
+    createHistory.innerText = recentSearch;
+
+    $('#searchHistory').append(createHistory);
+
+    //on click clear history
+})
 //search for city
 $('#citySearchBtn').on('click', function(event) {
     event.preventDefault();
@@ -100,8 +111,8 @@ function uvIndex(lat, lon) {
     .then(function(response) {
         response.json().then(function(data) {
             displayUvIndex(data);
-        });
-    });
+        })
+    })
 }
 
 function displayUvIndex(index) {
@@ -149,14 +160,31 @@ function fiveDays(weather) {
             var forecastV = document.createElement('div');
             forecastV.classList = 'card bg-primary text-light m-2';
 
+            //date
             var forecastDate = document.createElement('h5');
             forecastDate.textContent = moment.unix(daily.dt).format('MMM D, YYYY');
             forecastDate.classList = 'car-header text-center'
             forecastV.appendChild(forecastDate);
 
+            //icon
+            var forecastIcon = document.createElement('img');
+            forecastIcon.classList = 'card-body text-center';
+            forecastIcon.setAttribute('src', `https://openweathermap.org/img/wn/${daily.weather[0].icon}@2x.png`);
+            forecastIcon.setAttribute('alt', 'forecastIcon');
+            forecastV.appendChild(forecastIcon);
+
+            //temperature
+            var forecastTemp = document.createElement('li');
+            forecastTemp.classList = 'card-body text-center';
+            forecastTemp.textContent = 'Temperature: ' + daily.main.temp + ' °K';
+            forecastV.appendChild(forecastTemp);
+
+            //humidity
+            var forecastHumidity = document.createElement('li');
+            forecastHumidity.classList = 'card-body text-center';
+            forecastHumidity.textContent = 'Humidity: ' + daily.main.humidity + ' %';
+            forecastV.appendChild(forecastHumidity);
+
             $('#fiveDays').append(forecastV);
-
-            //date
-
         }
 }
