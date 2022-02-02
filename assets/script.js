@@ -34,7 +34,7 @@ $(document).ready(function() {
             })
         }
     }
-    //on click clear history
+    //on click clear history (incomplete)
 })
 
 //search for city
