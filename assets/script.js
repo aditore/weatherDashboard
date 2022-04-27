@@ -66,6 +66,14 @@ $('#citySearchBtn').on('click', function(event) {
     console.log(searchHistoryLi);
 })
 
+//clear history
+$('#clearHistory').on('click', function(event) {
+    event.preventDefault();
+
+    localStorage.clear();
+    location.reload();
+})
+
 
 //function for getting api
 function currentWeather(city) {
